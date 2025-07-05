@@ -1,0 +1,20 @@
+<form class="component" [formGroup]="form" (ngSubmit)="createTodo()">
+  <!-- <h2 class="text-center">add new project</h2> -->
+  <div class="flex flex-center">
+    <div class="control flex-90">
+      <textarea
+        name="todo"
+        id="todo"
+        rows="3"
+        formControlName="todo"
+        placeholder="add new todo"
+        class="input-primary w-full"
+      ></textarea>
+    </div>
+    <div class="control">
+      <button class="btn-primary--round" [disabled]="form.invalid">
+        <fa-icon [icon]="plusIcon"></fa-icon>
+      </button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,16 @@
+<form class="flex flex-center" [formGroup]="form">
+  @for (item of formValues; track $index) {
+  <div class="control">
+    <input
+      type="radio"
+      name="filter"
+      [id]="$index + '_'"
+      class="input-primary"
+      [value]="item"
+      (change)="filter()"
+      formControlName="filter"
+    />
+    <label [htmlFor]="$index + '_'" class="text-center"> {{ item }}</label>
+  </div>
+  }
+</form>

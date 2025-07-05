@@ -1,0 +1,58 @@
+<div class="page">
+  <div class="component action-header">
+    <h2 class="text-center">projects</h2>
+  </div>
+  <div class="component create-area">
+    <create-project />
+  </div>
+  <div class="component main-items">
+    <date-filter (onFilter)="getProjects($event)" (onReset)="reset()" />
+
+    <completed-filter
+      (onFilter)="filterProjects($event)"
+      [filterValue]="projectsStore.filter()"
+    />
+
+    <div class="component data-frames">
+      @if (projectsStore.projects().length>0) {
+      <div class="component flex">
+        <!-- headers of the table -->
+        <div class="sn flex-10">sn</div>
+        <div class="product flex-5"></div>
+
+        <div class="product flex-70">project</div>
+        <div class="product flex-10">status</div>
+        <div class="product flex-5"></div>
+      </div>
+      @for (item of projectsStore.displayedProjects(); track $index) {
+      <div class="component flex data-frame align-center">
+        <div class="sn flex-10">{{ $index + 1 }}</div>
+        <div class="expiry flex-5">
+          <input
+            type="checkbox"
+            name="completed"
+            [checked]="item.completed"
+            [value]="item.completed"
+            [id]="$index + '_'"
+            (change)="complete(item._id)"
+          />
+        </div>
+
+        <div class="product flex-70">
+          <div>{{ item.title }}</div>
+          <div class="project-description">{{ item.description }}</div>
+        </div>
+
+        <div class="expiry flex-10 text-center">
+          {{ item.completed ? "completed" : "pending" }}
+        </div>
+        <div class="expiry flex-5">
+          <cancel-button (click)="deleteProject(item._id)" />
+        </div>
+      </div>
+      } }@else {
+      <div>no projects to show.. add more</div>
+      }
+    </div>
+  </div>
+</div>

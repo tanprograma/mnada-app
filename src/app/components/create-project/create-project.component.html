@@ -1,0 +1,30 @@
+<form class="component" [formGroup]="form" (ngSubmit)="createProject()">
+  <!-- <h2 class="text-center">add new project</h2> -->
+  <div class="flex flex-center">
+    <div class="control flex-100">
+      <textarea
+        name="project"
+        id="project"
+        rows="2"
+        formControlName="project"
+        placeholder="add new project"
+        class="input-primary w-full"
+      ></textarea>
+    </div>
+    <div class="control flex-100">
+      <textarea
+        name="description"
+        id="description"
+        rows="5"
+        formControlName="description"
+        placeholder="add project description"
+        class="input-primary w-full"
+      ></textarea>
+    </div>
+    <div class="control">
+      <button class="btn-primary--round" [disabled]="form.invalid">
+        <fa-icon [icon]="plusIcon"></fa-icon>
+      </button>
+    </div>
+  </div>
+</form>

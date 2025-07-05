@@ -1,0 +1,61 @@
+.tomasha {
+  height: 100vh;
+  position: relative;
+}
+header {
+  height: 10%;
+  border-bottom: 1px solid black;
+  padding: 10px;
+  position: relative;
+  overflow-y: visible;
+}
+.menu-container {
+  position: absolute;
+  top: 10vh;
+  margin-top: 2px;
+  z-index: 1;
+}
+.main-menu {
+  margin-right: 10px;
+  font-size: xx-large;
+}
+.main-menu:hover {
+  cursor: pointer;
+}
+
+.tomasha-main {
+  height: 85%;
+  overflow-y: scroll;
+}
+.tomasha-main::-webkit-scrollbar {
+  display: none;
+}
+footer {
+  height: 5%;
+  border-top: 1px solid black;
+}
+.logo {
+  font-weight: 800;
+}
+.loading {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+}
+// .allert {
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+// }
+// .allert-inner {
+//   position: relative;
+//   height: 100%;
+//   width: 100%;
+//   top: 0;
+//   opacity: 80%;
+// }
+.request-status--normal {
+  background-color: black;
+  color: white;
+}

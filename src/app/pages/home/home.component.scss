@@ -1,0 +1,21 @@
+.main-page {
+  display: flex;
+}
+.menu {
+  flex: 0 1 20%;
+  overflow-y: scroll;
+}
+
+.main-content {
+  flex: 0 1 80%;
+  height: 100%;
+}
+.sales-info {
+  background-color: rgb(182, 216, 182);
+}
+.purchases-info {
+  background-color: rgb(182, 216, 182);
+}
+.inventories-info {
+  background-color: rgb(182, 216, 182);
+}

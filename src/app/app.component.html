@@ -1,0 +1,43 @@
+<div class="tomasha hide-scroll">
+  <header class="flex relative">
+    @if (!!userStore.loggedUser()) {
+    <div class="flex flex-center main-menu">
+      <fa-icon [icon]="menuIcon" (click)="toggleMenu()"></fa-icon>
+    </div>
+    }
+    <div class="flex align-center logo">NZOKA JOURNAL&reg;</div>
+    <div class="ml-auto">
+      <user></user>
+    </div>
+    @if (showMenu && !!userStore.loggedUser()) {
+    <div class="menu-container">
+      <dropdown-links [open]="true" [links]="appLinks" />
+    </div>
+    }
+  </header>
+  <div class="tomasha-main hide-scroll">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer class="flex flex-center">
+    created by tanprograma LLC&copy;2024. for help call +255 685 926 033
+  </footer>
+  <!-- loading things -->
+  @if (notificationStore.loading()) {
+  <div class="loading">
+    @if (notificationStore.status()==undefined) {
+
+    <allert-loading />
+
+    } @if (notificationStore.status()==true) {
+
+    <allert-success />
+
+    } @if (notificationStore.status()==false) {
+
+    <allert-failure />
+
+    }
+  </div>
+  }
+</div>
