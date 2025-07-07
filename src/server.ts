@@ -5,7 +5,6 @@ import {
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
 import express from 'express';
-import dotenv from 'dotenv';
 
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -29,7 +28,7 @@ import journals from '../api/routes/journal.api';
 
 const appDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(appDistFolder, '../browser');
-dotenv.config();
+
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
@@ -93,10 +92,14 @@ if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
 
   app.listen(port, () => {
-    const DATABASE_URL = process.env['DATABASE_URL'] || '';
+    const DATABASE_URL =
+      process.env['NODE_ENV'] === 'production'
+        ? process.env['DATABASE_URL']
+        : 'mongodb://127.0.0.1:27017/STUDYAPP-NEW';
     console.log(`Node Express app listening on http://localhost:${port}`);
+
     mongoose
-      .connect(DATABASE_URL)
+      .connect(DATABASE_URL as string)
       .then(() => {
         console.log(`database ${DATABASE_URL} connected successfully`);
       })
