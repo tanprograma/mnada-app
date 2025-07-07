@@ -9,7 +9,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-
+dotenv.config();
 import users from '../api/routes/user.api';
 // import notes from '../api/routes/notes.mjs';
 import topics from '../api/routes/topic.api';
@@ -25,9 +25,6 @@ import results from '../api/routes/exam-result.api';
 import projects from '../api/routes/project.api';
 // import studyqns from '../api/routes/studyqns';
 import journals from '../api/routes/journal.api';
-if (process.env['NODE_ENV'] === 'development') {
-  dotenv.config();
-}
 
 const appDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(appDistFolder, '../browser');
