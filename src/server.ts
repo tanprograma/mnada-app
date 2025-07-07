@@ -1,17 +1,17 @@
-import express from 'express';
-import dotenv from 'dotenv';
-try {
-  dotenv.config();
-} catch (error) {
-  console.log((error as { message: string }).message);
-}
-
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
+import express from 'express';
+import dotenv from 'dotenv';
+
+if (process.env['NODE_ENV'] === 'development') {
+  console.log('dev environment');
+
+  dotenv.config();
+}
 
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
