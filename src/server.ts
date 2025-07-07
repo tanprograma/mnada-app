@@ -11,16 +11,16 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import users from '../api/routes/user.api';
 // import notes from '../api/routes/notes.mjs';
-// import topics from '../api/routes/topics.mjs';
-// import subjects from '../api/routes/subjects.mjs';
+import topics from '../api/routes/topic.api';
+import books from '../api/routes/book.api';
+import subjects from '../api/routes/subject.api';
 import quotes from '../api/routes/quote.api';
 import todos from '../api/routes/todo.api';
 import plans from '../api/routes/plan.api';
 import articles from '../api/routes/article.api';
-// import exams from '../api/routes/exams';
-// import results from '../api/routes/exam-results';
+import exams from '../api/routes/exam.api';
+import results from '../api/routes/exam-result.api';
 
-// import books from '../api/routes/books';
 import projects from '../api/routes/project.api';
 // import studyqns from '../api/routes/studyqns';
 import journals from '../api/routes/journal.api';
@@ -48,18 +48,18 @@ app.use(express.json());
 
 app.use('/api/users', users);
 // app.use('/api/notes', notes);
-// app.use('/api/exams', exams);
+app.use('/api/exams', exams);
+app.use('/api/results', results);
 // app.use('/api/study', studyqns);
 app.use('/api/projects', projects);
-// app.use('/api/books', books);
+app.use('/api/books', books);
 
-// app.use('/api/exam-results', results);
 app.use('/api/quotes', quotes);
 app.use('/api/todos', todos);
 app.use('/api/plans', plans);
 app.use('/api/articles', articles);
-// app.use('/api/topics', topics);
-// app.use('/api/subjects', subjects);
+app.use('/api/topics', topics);
+app.use('/api/subjects', subjects);
 app.use('/api/journals', journals);
 /**
  * Serve static files from /browser

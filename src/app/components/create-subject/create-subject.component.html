@@ -1,0 +1,42 @@
+<div class="">
+  <form class="component" [formGroup]="form" (ngSubmit)="createSubject()">
+    <!-- <h2 class="text-center">add new subject</h2> -->
+    <div class="flex flex-center">
+      <div class="control flex-90">
+        <input
+          name="subject"
+          id="subject"
+          class="input-primary"
+          formControlName="subject"
+          placeholder="add new subject"
+          class="input-primary w-full"
+        />
+      </div>
+
+      <div class="control">
+        <button class="btn-primary--round" [disabled]="form.invalid">
+          <fa-icon [icon]="plusIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="component main-items">
+    <div class="component data-frames">
+      @if (stuydToolStore.subjects().length>0) {
+      <div class="component flex">
+        <div class="sn flex-10">sn</div>
+
+        <div class="product">subject</div>
+      </div>
+      @for (item of stuydToolStore.subjects(); track $index) {
+      <div class="component flex data-frame align-center">
+        <div class="sn flex-10">{{ $index + 1 }}</div>
+
+        <div class="product">{{ item.name }}</div>
+      </div>
+      } }@else {
+      <div>no subjects to show.. add entries</div>
+      }
+    </div>
+  </div>
+</div>

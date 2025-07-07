@@ -2,3 +2,7 @@
   transform: rotate(360);
   transition: all 0.1 ease-in-out infinite;
 }
+.data-frame:hover {
+  cursor: pointer;
+  background-color: lightgreen;
+}

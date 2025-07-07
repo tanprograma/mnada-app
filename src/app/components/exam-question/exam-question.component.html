@@ -1,0 +1,47 @@
+<div
+  class="question-container"
+  [class.correct]="!!marked && question.answer == question.selected"
+  [class.incorrect]="!!marked && question.answer != question.selected"
+  [class.is-marked]="!!marked"
+>
+  <div class="flex">
+    <button class="btn-primary toggleBtn" (click)="toggleMore()">
+      <fa-icon [icon]="showMore ? upIcon : downIcon"></fa-icon>
+    </button>
+  </div>
+  <form class="" [formGroup]="form">
+    @for (item of selections; track $index) {
+    <div
+      class="control flex align-center"
+      [class.no-display]="!showMore && $index > 4"
+    >
+      @if (!!marked) {
+      <input
+        type="radio"
+        name="answer"
+        [id]="$index + '_'"
+        class="input-primary"
+        [checked]="item == question.selected"
+        disabled
+      />
+      }@else {
+      <input
+        type="radio"
+        name="answer"
+        [id]="$index + '_'"
+        class="input-primary"
+        [value]="item"
+        (change)="select()"
+        formControlName="answer"
+      />
+      }
+      <label [htmlFor]="$index + '_'" class="text-center"> {{ item }}</label>
+    </div>
+    }
+  </form>
+  @if (!!marked&& question.selected!=question.answer) {
+  <p class="text-center">
+    wrong answer. correct choice is {{ question.answer }}
+  </p>
+  }
+</div>

@@ -1,0 +1,23 @@
+.toggleBtn {
+  display: block;
+  margin-left: auto;
+}
+.no-display {
+  display: none;
+}
+
+input {
+  width: auto;
+}
+.question-container {
+  background-color: rgb(227, 234, 238);
+}
+.is-marked {
+  cursor: none;
+}
+.correct {
+  background-color: rgb(175, 240, 208);
+}
+.incorrect {
+  background-color: rgb(220, 168, 168);
+}

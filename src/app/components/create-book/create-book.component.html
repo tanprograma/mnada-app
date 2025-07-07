@@ -1,0 +1,58 @@
+<div class="">
+  <form class="component" [formGroup]="form" (ngSubmit)="createBook()">
+    <!-- <h2 class="text-center">add new subject</h2> -->
+    <div class="flex flex-center">
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          class="input-primary w-full"
+          formControlName="subject"
+          id="subject"
+          name="subject"
+        >
+          <option value="" selected disabled>select a subject</option>
+          @for (item of stuydToolStore.subjects(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-70">
+        <input
+          name="book"
+          id="book"
+          class="input-primary"
+          formControlName="book"
+          placeholder="add new book"
+          class="input-primary w-full"
+        />
+      </div>
+
+      <div class="control">
+        <button class="btn-primary--round" [disabled]="form.invalid">
+          <fa-icon [icon]="plusIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="component main-items">
+    <div class="component data-frames">
+      @if (stuydToolStore.displayedBooks().length>0) {
+      <div class="component flex">
+        <div class="sn flex-10">sn</div>
+
+        <div class="product flex-20">subject</div>
+        <div class="product">book</div>
+      </div>
+      @for (item of stuydToolStore.displayedBooks(); track $index) {
+      <div class="component flex data-frame align-center">
+        <div class="sn flex-10">{{ $index + 1 }}</div>
+
+        <div class="product flex-20">{{ item.subject }}</div>
+        <div class="product">{{ item.name }}</div>
+      </div>
+      } }@else {
+      <div>no books to show.. add entries</div>
+      }
+    </div>
+  </div>
+</div>

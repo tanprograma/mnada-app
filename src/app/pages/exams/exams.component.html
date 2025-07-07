@@ -1,0 +1,99 @@
+<div class="">
+  <div class="component">
+    <h2 class="text-center">exams</h2>
+  </div>
+  <form class="component" [formGroup]="form" (ngSubmit)="getExams()">
+    <!-- <h2 class="text-center">add new subject</h2> -->
+    <div class="flex flex-center">
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          class="input-primary w-full"
+          formControlName="subject"
+          id="subject"
+          name="subject"
+        >
+          <option value="" selected disabled>select a subject</option>
+          @for (item of stuydToolStore.subjects(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          name="book"
+          id="book"
+          class="input-primary"
+          formControlName="book"
+          class="input-primary w-full"
+        >
+          <option value="" selected disabled>select a book</option>
+          @for (item of stuydToolStore.books(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          name="topic"
+          id="topic"
+          class="input-primary"
+          formControlName="topic"
+          class="input-primary w-full"
+        >
+          <option value="" selected disabled>select a topic</option>
+          @for (item of stuydToolStore.topics(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="control">
+        <span> &nbsp; </span>
+
+        <button class="btn-primary" type="submit">
+          <fa-icon [icon]="searchIcon"></fa-icon> &nbsp; search
+        </button>
+      </div>
+      <div class="control">
+        <span> &nbsp; </span>
+
+        <button class="btn-secondary" type="reset" (click)="reset()">
+          <fa-icon [icon]="refreshIcon"></fa-icon> &nbsp; reset
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="component main-items">
+    <div class="component data-frames">
+      @if (stuydToolStore.displayedExams().length>0) {
+      <div class="component flex">
+        <!-- headers of the table -->
+        <div class="sn flex-10">sn</div>
+
+        <div class="product flex-30">subject</div>
+        <div class="product flex-20">source</div>
+        <div class="product flex-30">topic</div>
+        <div class="product">questions</div>
+      </div>
+
+      @for (item of stuydToolStore.displayedExams(); track $index) {
+      <a [routerLink]="['/take-test', item._id]" class="container-link">
+        <div class="component flex data-frame">
+          <!-- headers of the table -->
+          <div class="sn flex-10">{{ $index + 1 }}</div>
+
+          <div class="product flex-30">{{ item.subject }}</div>
+          <div class="product flex-20">{{ item.source }}</div>
+          <div class="product flex-30">{{ item.topic }}</div>
+          <div class="product">{{ item.questions.length }}</div>
+        </div>
+      </a>
+      } }@else {
+      <div>no exams to show.. add entries</div>
+      }
+    </div>
+  </div>
+</div>

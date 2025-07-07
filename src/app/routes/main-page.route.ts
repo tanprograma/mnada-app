@@ -14,6 +14,13 @@ import { ProjectComponent } from '../pages/project/project.component';
 import { PlanComponent } from '../pages/plan/plan.component';
 import { TodoComponent } from '../pages/todo/todo.component';
 import { JournalComponent } from '../pages/journal/journal.component';
+import { StudyToolsComponent } from '../pages/study-tools/study-tools.component';
+import { CreateSubjectComponent } from '../components/create-subject/create-subject.component';
+import { CreateBookComponent } from '../components/create-book/create-book.component';
+import { CreateTopicComponent } from '../components/create-topic/create-topic.component';
+import { CreateExamComponent } from '../components/create-exam/create-exam.component';
+import { ExamsComponent } from '../pages/exams/exams.component';
+import { TakeTestComponent } from '../pages/take-test/take-test.component';
 
 const route: Routes = [
   { path: '', redirectTo: '/journals', pathMatch: 'full' },
@@ -29,6 +36,23 @@ const route: Routes = [
   { path: 'projects', component: ProjectComponent },
   { path: 'plans', component: PlanComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'exams', component: ExamsComponent },
+  { path: 'take-test/:testID', component: TakeTestComponent },
+  {
+    path: 'study-tools',
+    component: StudyToolsComponent,
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: '/study-tools/create-subjects',
+      },
+      { path: 'create-subjects', component: CreateSubjectComponent },
+      { path: 'create-books', component: CreateBookComponent },
+      { path: 'create-topics', component: CreateTopicComponent },
+      { path: 'create-exams', component: CreateExamComponent },
+    ],
+  },
   // { path: ':userid/create-questions', component: CreateQuestionsComponent },
   // { path: ':userid/create-subjects', component: CreateSubjectComponent },
 ];

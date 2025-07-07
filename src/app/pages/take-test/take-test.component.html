@@ -1,0 +1,42 @@
+<div class="">
+  @if (!!marked) {
+  <div class="component flex flex-center">
+    you scored {{ stuydToolStore.displayedExamInfo().marks }}%
+  </div>
+  }
+  <div class="component main-items">
+    <div class="component data-frames test">
+      @if (!!stuydToolStore.selectedExam()) { @for (item of
+      stuydToolStore.selectedExam()?.questions; track $index) {
+      <div class="component">
+        <p>question {{ $index + 1 }}</p>
+        <exam-question
+          [question]="item"
+          [marked]="marked"
+          (onSelect)="setAnswer($event)"
+        />
+      </div>
+      }
+      <div class="component flex flex-center">
+        @if (marked) {
+        <button class="btn-primary" (click)="saveResults()">
+          save results
+        </button>
+
+        }@else {
+
+        <button class="btn-primary" (click)="completeTest()">
+          complete test
+        </button>
+
+        }
+      </div>
+      }@else {
+      <div>
+        no exam questions to show.. &nbsp;
+        <button class="btn-primary" (click)="getTest()">redo the test</button>
+      </div>
+      }
+    </div>
+  </div>
+</div>

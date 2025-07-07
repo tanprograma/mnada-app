@@ -1,0 +1,75 @@
+<div class="">
+  <form class="component" [formGroup]="form" (ngSubmit)="createTopic()">
+    <!-- <h2 class="text-center">add new subject</h2> -->
+    <div class="flex flex-center">
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          class="input-primary w-full"
+          formControlName="subject"
+          id="subject"
+          name="subject"
+        >
+          <option value="" selected disabled>select a subject</option>
+          @for (item of stuydToolStore.subjects(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          name="book"
+          id="book"
+          class="input-primary"
+          formControlName="book"
+          class="input-primary w-full"
+        >
+          <option value="" selected disabled>select a book</option>
+          @for (item of stuydToolStore.books(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-50">
+        <input
+          name="topic"
+          id="topic"
+          class="input-primary"
+          formControlName="topic"
+          placeholder="add new topic"
+          class="input-primary w-full"
+        />
+      </div>
+
+      <div class="control">
+        <button class="btn-primary--round" [disabled]="form.invalid">
+          <fa-icon [icon]="plusIcon"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="component main-items">
+    <div class="component data-frames">
+      @if (stuydToolStore.topics().length>0) {
+      <div class="component flex">
+        <div class="sn flex-10">sn</div>
+
+        <div class="product flex-20">subject</div>
+        <div class="product flex-20">book</div>
+        <div class="product">topic</div>
+      </div>
+      @for (item of stuydToolStore.displayedTopics(); track $index) {
+      <div class="component flex data-frame align-center">
+        <div class="sn flex-10">{{ $index + 1 }}</div>
+
+        <div class="product flex-20">{{ item.subject }}</div>
+        <div class="product flex-20">{{ item.book }}</div>
+        <div class="product">{{ item.name }}</div>
+      </div>
+      } }@else {
+      <div>no topics to show.. add entries</div>
+      }
+    </div>
+  </div>
+</div>

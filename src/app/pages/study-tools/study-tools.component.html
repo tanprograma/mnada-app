@@ -1,0 +1,45 @@
+<div class="page">
+  <div class="component action-header">
+    <h2 class="text-center">study tools management</h2>
+  </div>
+  <ul class="component flex flex-center link-list">
+    @for (item of links; track $index) {
+    <li>
+      <a [routerLink]="item.url" routerLinkActive="active">{{ item.name }}</a>
+    </li>
+    }
+  </ul>
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+  <!-- <div class="component create-area">
+      <create-journal />
+    </div>
+    <div class="component main-items">
+      <date-filter (onFilter)="getJournals($event)" (onReset)="reset()" />
+  
+      <div class="component data-frames">
+        @if (journalStore.journals().length>0) {
+        <div class="component flex">
+          <div class="sn flex-10">sn</div>
+          <div class="product flex-15">time</div>
+          <div class="product flex-70">entry</div>
+  
+          <div class="product flex-5"></div>
+        </div>
+        @for (item of journalStore.displayedJournal(); track $index) {
+        <div class="component flex data-frame align-center">
+          <div class="sn flex-10">{{ $index + 1 }}</div>
+          <div class="product flex-15">{{ item.createdAt }}</div>
+          <div class="product flex-70">{{ item.entry }}</div>
+  
+          <div class="expiry flex-5">
+            <cancel-button (click)="deleteJournal(item._id)" />
+          </div>
+        </div>
+        } }@else {
+        <div>no journal to show.. add entries</div>
+        }
+      </div>
+    </div> -->
+</div>
