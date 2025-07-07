@@ -7,9 +7,8 @@ import {
 import express from 'express';
 import dotenv from 'dotenv';
 
-if (process.env['NODE_ENV'] === 'development') {
+if (process.env['NODE_ENV'] != 'production') {
   console.log('dev environment');
-
   dotenv.config();
 }
 
