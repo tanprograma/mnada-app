@@ -7,11 +7,6 @@ import {
 import express from 'express';
 import dotenv from 'dotenv';
 
-if (process.env['NODE_ENV'] != 'production') {
-  console.log('dev environment');
-  dotenv.config();
-}
-
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
@@ -34,7 +29,7 @@ import journals from '../api/routes/journal.api';
 
 const appDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(appDistFolder, '../browser');
-
+dotenv.config();
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
@@ -96,9 +91,9 @@ app.use('/**', (req, res, next) => {
  */
 if (isMainModule(import.meta.url)) {
   const port = process.env['PORT'] || 4000;
-  const DATABASE_URL = process.env['DATABASE_URL'] as string;
 
   app.listen(port, () => {
+    const DATABASE_URL = process.env['DATABASE_URL'] || '';
     console.log(`Node Express app listening on http://localhost:${port}`);
     mongoose
       .connect(DATABASE_URL)
