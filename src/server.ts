@@ -12,7 +12,7 @@ import dotenv from 'dotenv';
 try {
   dotenv.config();
 } catch (error) {
-  console.error(error);
+  console.error((error as { message: string }).message);
 }
 import users from '../api/routes/user.api';
 // import notes from '../api/routes/notes.mjs';
