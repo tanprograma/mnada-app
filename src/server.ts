@@ -9,7 +9,11 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-dotenv.config();
+try {
+  dotenv.config();
+} catch (error) {
+  console.error(error);
+}
 import users from '../api/routes/user.api';
 // import notes from '../api/routes/notes.mjs';
 import topics from '../api/routes/topic.api';
