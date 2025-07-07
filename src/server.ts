@@ -1,19 +1,22 @@
+import express from 'express';
+import dotenv from 'dotenv';
+try {
+  dotenv.config();
+} catch (error) {
+  console.log((error as { message: string }).message);
+}
+
 import {
   AngularNodeAppEngine,
   createNodeRequestHandler,
   isMainModule,
   writeResponseToNodeResponse,
 } from '@angular/ssr/node';
-import express from 'express';
+
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-try {
-  dotenv.config();
-} catch (error) {
-  console.error((error as { message: string }).message);
-}
+
 import users from '../api/routes/user.api';
 // import notes from '../api/routes/notes.mjs';
 import topics from '../api/routes/topic.api';
