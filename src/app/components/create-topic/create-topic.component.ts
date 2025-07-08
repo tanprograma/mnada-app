@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd, faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,7 @@ import { Notification } from '../../data-stores/notification.store';
   templateUrl: './create-topic.component.html',
   styleUrl: './create-topic.component.scss',
 })
-export class CreateTopicComponent implements OnInit {
+export class CreateTopicComponent implements OnInit, OnDestroy {
   plusIcon = faAdd;
 
   crossIcon = faTimes;
@@ -27,7 +27,11 @@ export class CreateTopicComponent implements OnInit {
     book: ['', Validators.required],
     topic: ['', Validators.required],
   });
-
+  filterResources() {
+    this.stuydToolStore.updateFilter({
+      subject: this.form.value.subject ?? '',
+    });
+  }
   async createTopic() {
     const subject = this.stuydToolStore.findSubject(
       this.form.value.subject ?? ''
@@ -44,6 +48,9 @@ export class CreateTopicComponent implements OnInit {
   }
   ngOnInit(): void {
     this.getResources().then((_) => {});
+  }
+  ngOnDestroy(): void {
+    this.stuydToolStore.resetFilter();
   }
   async getResources() {
     this.reqState.updateNotification({

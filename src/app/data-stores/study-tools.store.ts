@@ -18,8 +18,8 @@ type State = {
   topics: Topic[];
   exams: Exam[];
   examCart: ExamQuestion[];
-
   selectedExam: Exam | null;
+  filter: { subject: string; book: string; topic: string };
 };
 const initialState: State = {
   books: [],
@@ -27,32 +27,46 @@ const initialState: State = {
   subjects: [],
   exams: [],
   examCart: [],
-
+  filter: {
+    subject: '',
+    topic: '',
+    book: '',
+  },
   selectedExam: null,
 };
 export const StudyToolsStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
-  withComputed(({ books, subjects, topics, exams, selectedExam }) => ({
+  withComputed(({ books, subjects, topics, exams, selectedExam, filter }) => ({
     displayedBooks: computed(() => {
       if (subjects().length == 0) return [];
-      return books().map((item) => {
-        const subject = subjects().find(
-          (s) => s._id == item.subject
-        ) as Subject;
-        return { ...item, subject: subject.name };
-      });
+      return books()
+        .map((item) => {
+          const subject = subjects().find(
+            (s) => s._id == item.subject
+          ) as Subject;
+          return { ...item, subject: subject.name };
+        })
+        .filter((item) => {
+          if (filter().subject == '') return true;
+          return item.subject.includes(filter().subject);
+        });
     }),
     displayedTopics: computed(() => {
       if (books().length == 0) return [];
       if (subjects().length == 0) return [];
-      return topics().map((item) => {
-        const subject = subjects().find(
-          (s) => s._id == item.subject
-        ) as Subject;
-        const book = books().find((s) => s._id == item.book) as Book;
-        return { ...item, subject: subject.name, book: book.name };
-      });
+      return topics()
+        .map((item) => {
+          const subject = subjects().find(
+            (s) => s._id == item.subject
+          ) as Subject;
+          const book = books().find((s) => s._id == item.book) as Book;
+          return { ...item, subject: subject.name, book: book.name };
+        })
+        .filter((item) => {
+          if (filter().subject == '') return true;
+          return item.subject.includes(filter().subject);
+        });
     }),
     displayedExams: computed(() => {
       if (books().length == 0) return [];
@@ -112,6 +126,20 @@ export const StudyToolsStore = signalStore(
   })),
   withMethods((store, studyToolsService = inject(StudyToolsService)) => ({
     //   books methods
+    updateFilter(
+      payload: Partial<{ subject: string; book: string; topic: string }>
+    ) {
+      patchState(store, (state) => ({
+        ...state,
+        filter: { ...state.filter, ...payload },
+      }));
+    },
+    resetFilter() {
+      patchState(store, (state) => ({
+        ...state,
+        filter: { book: '', topic: '', subject: '' },
+      }));
+    },
     async getBooks(query: { [key: string]: any } = {}) {
       const result = await studyToolsService.getBooks(query);
       //   const books = this.mapBooks(result);

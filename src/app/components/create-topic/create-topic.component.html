@@ -9,6 +9,7 @@
           formControlName="subject"
           id="subject"
           name="subject"
+          (change)="filterResources()"
         >
           <option value="" selected disabled>select a subject</option>
           @for (item of stuydToolStore.subjects(); track $index) {
@@ -26,7 +27,7 @@
           class="input-primary w-full"
         >
           <option value="" selected disabled>select a book</option>
-          @for (item of stuydToolStore.books(); track $index) {
+          @for (item of stuydToolStore.displayedBooks(); track $index) {
           <option [value]="item.name">{{ item.name }}</option>
           }
         </select>
