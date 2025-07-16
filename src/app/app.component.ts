@@ -42,6 +42,10 @@ export class AppComponent {
       name: 'tests',
       url: '/exams',
     },
+    {
+      name: 'notes',
+      url: '/notes',
+    },
   ];
   toggleMenu() {
     this.showMenu = !this.showMenu;

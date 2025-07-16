@@ -1,5 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { Book, Subject, Topic } from '../interfaces/study-tools.interface';
+import {
+  Book,
+  Note,
+  Subject,
+  Topic,
+} from '../interfaces/study-tools.interface';
 import {
   PostResponse,
   PostResponseData,
@@ -159,6 +164,35 @@ export class StudyToolsService {
       this.notificationService.updateNotification({
         status: false,
         message: 'result save failed',
+      });
+    }
+    return res;
+  }
+  async getNotes(options: { [key: string]: any } = {}) {
+    let parsedOptions = '';
+    for (let key of Object.keys(options)) {
+      parsedOptions += `${key}=${options[key]}&&`;
+    }
+    const api = `${this.origin}/api/notes?${parsedOptions}`;
+    return this.http.get<Note[]>(api);
+  }
+
+  async postNote(payload: Partial<Note>) {
+    this.notificationService.updateNotification({
+      message: 'creating new note',
+      loading: true,
+    });
+    const api = `${this.origin}/api/notes/create`;
+    const res = await this.http.post<Partial<Note>, PostResponseData<Note>>(
+      api,
+      payload
+    );
+    if (!!res.status) {
+      this.notificationService.reset();
+    } else {
+      this.notificationService.updateNotification({
+        status: false,
+        message: 'note creation failed',
       });
     }
     return res;

@@ -21,6 +21,8 @@ import { CreateTopicComponent } from '../components/create-topic/create-topic.co
 import { CreateExamComponent } from '../components/create-exam/create-exam.component';
 import { ExamsComponent } from '../pages/exams/exams.component';
 import { TakeTestComponent } from '../pages/take-test/take-test.component';
+import { CreateNoteComponent } from '../components/create-note/create-note.component';
+import { NotesComponent } from '../pages/notes/notes.component';
 
 const route: Routes = [
   { path: '', redirectTo: '/journals', pathMatch: 'full' },
@@ -37,6 +39,7 @@ const route: Routes = [
   { path: 'plans', component: PlanComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'exams', component: ExamsComponent },
+  { path: 'notes', component: NotesComponent },
   { path: 'take-test/:testID', component: TakeTestComponent },
   {
     path: 'study-tools',
@@ -51,6 +54,7 @@ const route: Routes = [
       { path: 'create-books', component: CreateBookComponent },
       { path: 'create-topics', component: CreateTopicComponent },
       { path: 'create-exams', component: CreateExamComponent },
+      { path: 'create-notes', component: CreateNoteComponent },
     ],
   },
   // { path: ':userid/create-questions', component: CreateQuestionsComponent },

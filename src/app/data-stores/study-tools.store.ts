@@ -8,7 +8,12 @@ import {
 
 import { computed, inject } from '@angular/core';
 
-import { Book, Subject, Topic } from '../interfaces/study-tools.interface';
+import {
+  Book,
+  Note,
+  Subject,
+  Topic,
+} from '../interfaces/study-tools.interface';
 import { StudyToolsService } from '../services/study-tools.service';
 import { Exam, ExamQuestion } from '../interfaces/exam.interface';
 // making utilities immutable
@@ -17,6 +22,7 @@ type State = {
   subjects: Subject[];
   topics: Topic[];
   exams: Exam[];
+  notes: Note[];
   examCart: ExamQuestion[];
   selectedExam: Exam | null;
   filter: { subject: string; book: string; topic: string };
@@ -27,6 +33,7 @@ const initialState: State = {
   subjects: [],
   exams: [],
   examCart: [],
+  notes: [],
   filter: {
     subject: '',
     topic: '',
@@ -53,20 +60,31 @@ export const StudyToolsStore = signalStore(
         });
     }),
     displayedTopics: computed(() => {
-      if (books().length == 0) return [];
-      if (subjects().length == 0) return [];
-      return topics()
-        .map((item) => {
-          const subject = subjects().find(
-            (s) => s._id == item.subject
-          ) as Subject;
-          const book = books().find((s) => s._id == item.book) as Book;
-          return { ...item, subject: subject.name, book: book.name };
-        })
-        .filter((item) => {
-          if (filter().subject == '') return true;
-          return item.subject.includes(filter().subject);
-        });
+      if (books().length == 0 && subjects().length == 0) return topics();
+      if (subjects().length > 0) {
+        return topics()
+          .map((item) => {
+            const subject = subjects().find(
+              (s) => s._id == item.subject
+            ) as Subject;
+
+            return { ...item, subject: subject.name };
+          })
+          .filter((item) => {
+            if (filter().subject == '') return true;
+            return item.subject.includes(filter().subject);
+          });
+      } else {
+        return topics()
+          .map((item) => {
+            const book = books().find((s) => s._id == item.book) as Book;
+            return { ...item, book: book.name };
+          })
+          .filter((item) => {
+            if (filter().book == '') return true;
+            return item.subject.includes(filter().book);
+          });
+      }
     }),
     displayedExams: computed(() => {
       if (books().length == 0) return [];
@@ -178,6 +196,19 @@ export const StudyToolsStore = signalStore(
       patchState(store, (state) => ({
         ...state,
         subjects: [result, ...state.subjects],
+      }));
+      return status;
+    },
+    // note methods
+    async getNotes(query: { [key: string]: any } = {}) {
+      const items = await studyToolsService.getNotes(query);
+      patchState(store, (state) => ({ ...state, notes: items }));
+    },
+    async createNote(payload: Partial<Note>) {
+      const { status, result } = await studyToolsService.postNote(payload);
+      patchState(store, (state) => ({
+        ...state,
+        notes: [result, ...state.notes],
       }));
       return status;
     },

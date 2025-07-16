@@ -1,0 +1,79 @@
+<div class="">
+  <form class="component" [formGroup]="form" (ngSubmit)="searchNotes()">
+    <div class="flex flex-center">
+      <div class="control flex-20">
+        <select
+          class="input-primary w-full"
+          formControlName="subject"
+          id="subject"
+          name="subject"
+          (change)="filterResources()"
+        >
+          <option value="" selected disabled>select a subject</option>
+          @for (item of stuydToolStore.subjects(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          name="book"
+          id="book"
+          class="input-primary"
+          formControlName="book"
+          class="input-primary w-full"
+        >
+          <option value="" selected disabled>select a book</option>
+          @for (item of stuydToolStore.displayedBooks(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control flex-20">
+        <!-- <label for="store">&nbsp; project</label> -->
+        <select
+          name="topic"
+          id="topic"
+          class="input-primary"
+          formControlName="topic"
+          class="input-primary w-full"
+        >
+          <option value="" selected disabled>select a topic</option>
+          @for (item of stuydToolStore.displayedTopics(); track $index) {
+          <option [value]="item.name">{{ item.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="control">
+        <button class="btn-primary" [disabled]="form.invalid" type="submit">
+          <fa-icon [icon]="searchIcon"></fa-icon> &nbsp;search
+        </button>
+      </div>
+      <div class="control">
+        <button
+          class="btn-secondary"
+          [disabled]="form.invalid"
+          type="reset"
+          (click)="reset()"
+        >
+          <fa-icon [icon]="resetIcon"></fa-icon> &nbsp;reset
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="component main-items">
+    <ul class="component data-frames">
+      @if (stuydToolStore.notes().length>0) { @for (item of
+      stuydToolStore.notes(); track $index) {
+      <li>
+        <div class="component data-frame">
+          {{ item.title }}
+        </div>
+      </li>
+      } }@else {
+      <div>no notes to show.. add entries</div>
+      }
+    </ul>
+  </div>
+</div>

@@ -24,6 +24,10 @@ export class StudyToolsComponent {
       url: '/study-tools/create-topics',
     },
     {
+      name: 'create notes',
+      url: '/study-tools/create-notes',
+    },
+    {
       name: 'create exam',
       url: '/study-tools/create-exams',
     },
