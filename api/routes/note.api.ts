@@ -3,7 +3,16 @@ import { NoteModel } from '../models/note.model';
 
 const router = Express.Router();
 router.get('/', async (req, res) => {
-  const items = await NoteModel.find();
+  let options: { [key: string]: any } = {};
+  for (let item of Object.keys(req.query)) {
+    if (item !== 'limit') {
+      options[item] = req.query[item];
+    }
+  }
+  let { limit } = req.query;
+  const items = !!limit
+    ? await NoteModel.find(options).limit(parseInt(limit as string))
+    : await NoteModel.find(options);
   res.send(items);
 });
 router.delete('/delete/:id', async (req, res) => {
