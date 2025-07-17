@@ -64,15 +64,18 @@
   </form>
   <div class="component main-items">
     <div class="component data-frames">
-      @if (stuydToolStore.notes().length>0) { @for (item of
-      stuydToolStore.notes(); track $index) {
+      @if (stuydToolStore.study().length>0) { @for (item of
+      stuydToolStore.study(); track $index) {
 
       <div class="component data-frame">
         {{ item.title }}
       </div>
 
       } }@else {
-      <div>no notes to show.. add entries</div>
+      <div>
+        no questions to show..
+        <a routerLink="/study-tools/create-study">add entries</a>
+      </div>
       }
     </div>
   </div>

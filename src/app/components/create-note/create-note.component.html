@@ -68,9 +68,9 @@
     <div class="component data-frames">
       @if (stuydToolStore.notes().length>0) { @for (item of
       stuydToolStore.notes(); track $index) {
-      <ul class="component flex data-frame align-center">
-        <li class="product flex-20">{{ item.title }}</li>
-      </ul>
+      <div class="component flex data-frame align-center">
+        {{ item.title }}
+      </div>
       } }@else {
       <div>no notes to show.. add entries</div>
       }

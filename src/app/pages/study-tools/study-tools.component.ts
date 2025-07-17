@@ -31,5 +31,9 @@ export class StudyToolsComponent {
       name: 'create exam',
       url: '/study-tools/create-exams',
     },
+    {
+      name: 'create study',
+      url: '/study-tools/create-study',
+    },
   ];
 }

@@ -22,6 +22,7 @@ import articles from '../api/routes/article.api';
 import exams from '../api/routes/exam.api';
 import results from '../api/routes/exam-result.api';
 import notes from '../api/routes/note.api';
+import study from '../api/routes/study-qn.api';
 import projects from '../api/routes/project.api';
 // import studyqns from '../api/routes/studyqns';
 import journals from '../api/routes/journal.api';
@@ -48,6 +49,7 @@ app.use(express.json());
 
 app.use('/api/users', users);
 app.use('/api/notes', notes);
+app.use('/api/study', study);
 app.use('/api/exams', exams);
 app.use('/api/results', results);
 // app.use('/api/study', studyqns);

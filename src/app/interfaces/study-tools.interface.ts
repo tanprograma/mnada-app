@@ -21,3 +21,10 @@ export interface Note {
   topic: string;
   createdAt: string;
 }
+export interface Study {
+  title: string;
+  _id: string;
+  subject: string;
+  book: string;
+  topic: string;
+}

@@ -1,5 +1,5 @@
 <div class="">
-  <form class="component" [formGroup]="form" (ngSubmit)="searchNotes()">
+  <form class="component" [formGroup]="form" (ngSubmit)="create()">
     <div class="flex flex-center">
       <div class="control flex-20">
         <select
@@ -45,34 +45,34 @@
           }
         </select>
       </div>
-      <div class="control">
-        <button class="btn-primary" [disabled]="form.invalid" type="submit">
-          <fa-icon [icon]="searchIcon"></fa-icon> &nbsp;search
-        </button>
+    </div>
+    <div class="flex flex-center">
+      <div class="control flex-100">
+        <textarea
+          name="study"
+          id="study"
+          rows="3"
+          formControlName="study"
+          placeholder="add new entry"
+          class="input-primary w-full"
+        ></textarea>
       </div>
       <div class="control">
-        <button
-          class="btn-secondary"
-          [disabled]="form.invalid"
-          type="reset"
-          (click)="reset()"
-        >
-          <fa-icon [icon]="resetIcon"></fa-icon> &nbsp;reset
+        <button class="btn-primary" [disabled]="form.invalid">
+          <fa-icon [icon]="saveIcon"></fa-icon> &nbsp;save
         </button>
       </div>
     </div>
   </form>
   <div class="component main-items">
     <div class="component data-frames">
-      @if (stuydToolStore.notes().length>0) { @for (item of
-      stuydToolStore.notes(); track $index) {
-
-      <div class="component data-frame">
+      @if (stuydToolStore.study().length>0) { @for (item of
+      stuydToolStore.study(); track $index) {
+      <div class="component flex data-frame align-center">
         {{ item.title }}
       </div>
-
       } }@else {
-      <div>no notes to show.. add entries</div>
+      <div>no study questions to show.. add entries</div>
       }
     </div>
   </div>

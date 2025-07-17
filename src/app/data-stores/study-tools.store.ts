@@ -11,6 +11,7 @@ import { computed, inject } from '@angular/core';
 import {
   Book,
   Note,
+  Study,
   Subject,
   Topic,
 } from '../interfaces/study-tools.interface';
@@ -23,6 +24,7 @@ type State = {
   topics: Topic[];
   exams: Exam[];
   notes: Note[];
+  study: Study[];
   examCart: ExamQuestion[];
   selectedExam: Exam | null;
   filter: { subject: string; book: string; topic: string };
@@ -30,6 +32,7 @@ type State = {
 const initialState: State = {
   books: [],
   topics: [],
+  study: [],
   subjects: [],
   exams: [],
   examCart: [],
@@ -209,6 +212,18 @@ export const StudyToolsStore = signalStore(
       patchState(store, (state) => ({
         ...state,
         notes: [result, ...state.notes],
+      }));
+      return status;
+    },
+    async getStudy(query: { [key: string]: any } = {}) {
+      const items = await studyToolsService.getStudy(query);
+      patchState(store, (state) => ({ ...state, study: items }));
+    },
+    async createStudy(payload: Partial<Study>) {
+      const { status, result } = await studyToolsService.postStudy(payload);
+      patchState(store, (state) => ({
+        ...state,
+        study: [result, ...state.study],
       }));
       return status;
     },

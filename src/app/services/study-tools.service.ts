@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import {
   Book,
   Note,
+  Study,
   Subject,
   Topic,
 } from '../interfaces/study-tools.interface';
@@ -193,6 +194,35 @@ export class StudyToolsService {
       this.notificationService.updateNotification({
         status: false,
         message: 'note creation failed',
+      });
+    }
+    return res;
+  }
+  async getStudy(options: { [key: string]: any } = {}) {
+    let parsedOptions = '';
+    for (let key of Object.keys(options)) {
+      parsedOptions += `${key}=${options[key]}&&`;
+    }
+    const api = `${this.origin}/api/study?${parsedOptions}`;
+    return this.http.get<Study[]>(api);
+  }
+
+  async postStudy(payload: Partial<Study>) {
+    this.notificationService.updateNotification({
+      message: 'creating new study question',
+      loading: true,
+    });
+    const api = `${this.origin}/api/study/create`;
+    const res = await this.http.post<Partial<Study>, PostResponseData<Study>>(
+      api,
+      payload
+    );
+    if (!!res.status) {
+      this.notificationService.reset();
+    } else {
+      this.notificationService.updateNotification({
+        status: false,
+        message: 'study creation failed',
       });
     }
     return res;
