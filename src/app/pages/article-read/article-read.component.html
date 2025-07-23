@@ -1,0 +1,8 @@
+<div class="page">
+  @if(!!article){
+  <div class="article-container">
+    <render-article [article]="article"></render-article>
+  </div>
+  }@else { no article to show. <a routerLink="/articles"> go to articles</a>
+  }
+</div>

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { StudyToolsStore } from '../../data-stores/study-tools.store';
 import { Notification } from '../../data-stores/notification.store';
+import { UsersStore } from '../../data-stores/users.store';
 
 @Component({
   selector: 'study-tools',
@@ -9,7 +10,8 @@ import { Notification } from '../../data-stores/notification.store';
   templateUrl: './study-tools.component.html',
   styleUrl: './study-tools.component.scss',
 })
-export class StudyToolsComponent {
+export class StudyToolsComponent implements OnInit {
+  userStore = inject(UsersStore);
   links = [
     {
       name: 'create subjects',
@@ -35,5 +37,14 @@ export class StudyToolsComponent {
       name: 'create study',
       url: '/study-tools/create-study',
     },
+    {
+      name: 'create article',
+      url: '/study-tools/create-article',
+    },
   ];
+  ngOnInit(): void {
+    if (!this.userStore.authenticated()) {
+      this.userStore.routeToLogin();
+    }
+  }
 }

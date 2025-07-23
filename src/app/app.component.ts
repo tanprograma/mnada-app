@@ -37,7 +37,7 @@ export class AppComponent {
     { url: '/todos', name: 'todos' },
     { url: '/projects', name: 'projects' },
     { url: '/plans', name: 'plans' },
-    { url: '/study-tools', name: 'study tools' },
+
     {
       name: 'tests',
       url: '/exams',
@@ -50,6 +50,11 @@ export class AppComponent {
       name: 'study questions',
       url: '/study',
     },
+    {
+      name: 'articles',
+      url: '/articles',
+    },
+    { url: '/study-tools', name: 'study tools' },
   ];
   toggleMenu() {
     this.showMenu = !this.showMenu;

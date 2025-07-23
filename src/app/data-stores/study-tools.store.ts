@@ -17,6 +17,7 @@ import {
 } from '../interfaces/study-tools.interface';
 import { StudyToolsService } from '../services/study-tools.service';
 import { Exam, ExamQuestion } from '../interfaces/exam.interface';
+import { Article } from '../interfaces/article.interface';
 // making utilities immutable
 type State = {
   books: Book[];
@@ -25,6 +26,7 @@ type State = {
   exams: Exam[];
   notes: Note[];
   study: Study[];
+  articles: Partial<Article>[];
   examCart: ExamQuestion[];
   selectedExam: Exam | null;
   filter: { subject: string; book: string; topic: string };
@@ -37,6 +39,7 @@ const initialState: State = {
   exams: [],
   examCart: [],
   notes: [],
+  articles: [],
   filter: {
     subject: '',
     topic: '',
@@ -212,6 +215,23 @@ export const StudyToolsStore = signalStore(
       patchState(store, (state) => ({
         ...state,
         notes: [result, ...state.notes],
+      }));
+      return status;
+    },
+    // article methods
+    async getArticles(query: { [key: string]: any } = {}) {
+      const items = await studyToolsService.getArticles(query);
+      patchState(store, (state) => ({ ...state, articles: items }));
+    },
+    async getArticle(id: string) {
+      const article = await studyToolsService.getArticle(id);
+      return article;
+    },
+    async createArticle(payload: Partial<Article>) {
+      const { status, result } = await studyToolsService.postArticle(payload);
+      patchState(store, (state) => ({
+        ...state,
+        articles: [result, ...state.articles],
       }));
       return status;
     },

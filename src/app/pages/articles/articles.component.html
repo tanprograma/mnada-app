@@ -1,1 +1,14 @@
-<p>articles works!</p>
+<div class="page">
+  <h1 class="component text-center">articles</h1>
+  <div class="articles">
+    <ul>
+      @for (article of studyToolsStore.articles(); track $index) {
+      <li>
+        <a [routerLink]="['/articles/read', article._id]">{{
+          article.title
+        }}</a>
+      </li>
+      }
+    </ul>
+  </div>
+</div>

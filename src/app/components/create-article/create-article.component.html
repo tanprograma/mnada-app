@@ -1,0 +1,92 @@
+<div class="create-article-container relative">
+  @if (preview) {
+  <div class="create-article-page--preview">
+    <render-article
+      [article]="{
+        title: title,
+        secondaryTitle: secondaryTitle,
+        contents: articleContents
+      }"
+    ></render-article>
+  </div>
+  }@else {
+  <div class="create-article-page">
+    <div class="control">
+      <textarea
+        name=""
+        rows="1"
+        id="main-header"
+        class="article-input w-full main-heading"
+        [(ngModel)]="title"
+      ></textarea>
+    </div>
+
+    <div class="control">
+      <textarea
+        name=""
+        rows="1"
+        id="sec"
+        class="article-input w-full secondary-heading"
+        placeholder="secondary title here.."
+        [(ngModel)]="secondaryTitle"
+      ></textarea>
+    </div>
+
+    @for (item of articleContents; track $index) { @switch (item.tag) {@case
+    ('paragraph') {
+    <div class="control">
+      <textarea
+        name=""
+        rows="2"
+        [id]="$index + 1"
+        class="article-input w-full"
+        [(ngModel)]="item.content"
+      ></textarea>
+    </div>
+    } @case ('quote') {
+    <div class="control">
+      <textarea
+        name=""
+        rows="1"
+        [id]="$index + 1"
+        class="article-input w-full"
+        [(ngModel)]="item.content"
+      ></textarea>
+    </div>
+    <div class="control">
+      <textarea
+        name=""
+        rows="1"
+        [id]="$index + 1"
+        class="article-input w-full"
+        placeholder="author name if there's one"
+        [(ngModel)]="item.author"
+      ></textarea>
+    </div>
+    } } }
+  </div>
+  }
+
+  <div class="tags floating-btn">
+    <button class="btn-secondary" (click)="toggleShowTags()">
+      <fa-icon [icon]="showTags ? lessIcon : moreIcon"></fa-icon
+      >&nbsp;components
+    </button>
+    @if (showTags) {
+    <select name="" id="" (change)="addComponent($event)">
+      <option value="" selected disabled>select component</option>
+      @for (tag of tagOptions; track $index) {
+      <option [value]="tag">{{ tag }}</option>
+      }
+    </select>
+    }
+  </div>
+  <div class="component flex flex-center">
+    @if (preview) {
+    <button class="btn-secondary" (click)="togglePreview()">edit mode</button>
+    }@else {
+    <button class="btn-secondary" (click)="togglePreview()">preview</button>
+    }
+    <button class="btn-primary" (click)="saveArticle()">save article</button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+@switch (item.tag) { @case ('h2') {
+<h2>
+  {{ item.content }}
+</h2>
+} @case ('paragraph') {
+<p class="article-item normal-font">
+  {{ item.content }}
+</p>
+} @case ('quote') {
+<div class="article-item">
+  <span class="quote">"{{ item.content }}"</span>
+  &nbsp;
+  <span>
+    {{ !!item.author ? " - " + item.author : "" }}
+  </span>
+</div>
+
+} }

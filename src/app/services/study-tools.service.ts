@@ -14,6 +14,7 @@ import { HttpService } from './http.service';
 import { OriginService } from './origin.service';
 import { Notification } from '../data-stores/notification.store';
 import { Exam, ExamResult } from '../interfaces/exam.interface';
+import { Article } from '../interfaces/article.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -194,6 +195,41 @@ export class StudyToolsService {
       this.notificationService.updateNotification({
         status: false,
         message: 'note creation failed',
+      });
+    }
+    return res;
+  }
+  async getArticles(options: { [key: string]: any } = {}) {
+    let parsedOptions = '';
+    for (let key of Object.keys(options)) {
+      parsedOptions += `${key}=${options[key]}&&`;
+    }
+    const api = `${this.origin}/api/articles?${parsedOptions}`;
+    return this.http.get<Partial<Article>[]>(api);
+  }
+  async getArticle(id: string) {
+    const api = `${this.origin}/api/articles/selected-article/${id}`;
+    return this.http.get<Article>(api);
+  }
+  async postArticle(payload: Partial<Article>) {
+    this.notificationService.updateNotification({
+      message: 'creating new article',
+      loading: true,
+    });
+    const api = `${this.origin}/api/articles/create`;
+    const res = await this.http.post<
+      Partial<Article>,
+      PostResponseData<Article>
+    >(api, payload);
+    if (!!res.status) {
+      this.notificationService.updateNotification({
+        status: true,
+        message: 'article created successfully',
+      });
+    } else {
+      this.notificationService.updateNotification({
+        status: false,
+        message: 'article creation failed',
       });
     }
     return res;

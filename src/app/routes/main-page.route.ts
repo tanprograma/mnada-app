@@ -25,6 +25,8 @@ import { CreateNoteComponent } from '../components/create-note/create-note.compo
 import { NotesComponent } from '../pages/notes/notes.component';
 import { StudyComponent } from '../pages/study/study.component';
 import { CreateStudyComponent } from '../components/create-study/create-study.component';
+import { CreateArticleComponent } from '../components/create-article/create-article.component';
+import { ArticleReadComponent } from '../pages/article-read/article-read.component';
 
 const route: Routes = [
   { path: '', redirectTo: '/journals', pathMatch: 'full' },
@@ -43,6 +45,8 @@ const route: Routes = [
   { path: 'exams', component: ExamsComponent },
   { path: 'notes', component: NotesComponent },
   { path: 'study', component: StudyComponent },
+  { path: 'articles', component: ArticlesComponent },
+  { path: 'articles/read/:id', component: ArticleReadComponent },
   { path: 'take-test/:testID', component: TakeTestComponent },
   {
     path: 'study-tools',
@@ -59,6 +63,7 @@ const route: Routes = [
       { path: 'create-exams', component: CreateExamComponent },
       { path: 'create-notes', component: CreateNoteComponent },
       { path: 'create-study', component: CreateStudyComponent },
+      { path: 'create-article', component: CreateArticleComponent },
     ],
   },
   // { path: ':userid/create-questions', component: CreateQuestionsComponent },

@@ -1,0 +1,19 @@
+<div class="article-container">
+  <h1 class="component principal-heading">
+    {{ article.title }}
+  </h1>
+
+  @if (!!article.secondaryTitle) {
+  <h2 class="component secondary-heading">
+    {{ article.secondaryTitle }}
+  </h2>
+  } @if (!!article.createdAt) {
+  <div class="component author">
+    contributed by&nbsp;{{ article.author }}&nbsp; on&nbsp;{{
+      renderDate(article.createdAt)
+    }}
+  </div>
+  } @for (item of article.contents; track $index) {
+  <render-article-item [item]="item"></render-article-item>
+  }
+</div>

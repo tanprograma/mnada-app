@@ -9,21 +9,14 @@ const contentSchema = new Schema<ArticleItem>({
   tag: String,
   content: String,
 });
-const schema = new Schema<Article>({
-  author: String,
-  contents: [contentSchema],
-});
+const schema = new Schema<Article>(
+  {
+    title: String,
+    secondaryTitle: String,
+    author: String,
+    contents: [contentSchema],
+  },
+  { timestamps: true }
+);
 
 export const ArticleModel = model('Article', schema);
-// export interface Article {
-//   createdAt: String;
-//   updatedAt: string;
-//   author: string;
-//   _id: string;
-//   contents: ArticleItem[];
-// }
-// export interface ArticleItem {
-//   tag: 'paragraph';
-//   content: string;
-//   author?: string;
-// }
