@@ -47,7 +47,7 @@ export class CreateArticleComponent {
       case 'h2':
         this.articleContents = [
           ...this.articleContents,
-          { tag: value, content: '...this is a secondary heading' },
+          { tag: value, content: 'this is a secondary heading..' },
         ];
         break;
       case 'paragraph':

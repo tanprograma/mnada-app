@@ -32,12 +32,22 @@
       ></textarea>
     </div>
 
-    @for (item of articleContents; track $index) { @switch (item.tag) {@case
+    @for (item of articleContents; track $index) { @switch (item.tag) { @case
     ('paragraph') {
     <div class="control">
       <textarea
         name=""
         rows="2"
+        [id]="$index + 1"
+        class="article-input w-full"
+        [(ngModel)]="item.content"
+      ></textarea>
+    </div>
+    } @case ('h2') {
+    <div class="control">
+      <textarea
+        name=""
+        rows="1"
         [id]="$index + 1"
         class="article-input w-full"
         [(ngModel)]="item.content"
@@ -69,8 +79,8 @@
 
   <div class="tags floating-btn">
     <button class="btn-secondary" (click)="toggleShowTags()">
-      <fa-icon [icon]="showTags ? lessIcon : moreIcon"></fa-icon
-      >&nbsp;components
+      <fa-icon [icon]="showTags ? lessIcon : moreIcon"></fa-icon>&nbsp;add
+      component
     </button>
     @if (showTags) {
     <select name="" id="" (change)="addComponent($event)">
